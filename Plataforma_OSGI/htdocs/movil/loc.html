@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link rel="shortcut icon" href="../images/favio.ico" type="image/x-icon" />
+        <link rel="icon" href="../images/favio.ico" type="image/x-icon">
+        <title>Web of Things Dashboard</title>
+		<link href="../fixed.css" rel="stylesheet" type="text/css">
+		
+		<script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/constants.js"></script>
+				
+		<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript">
+				var map;
+			  var marker;
+			  var url ="http://10.1.10.227:6008/gw-d205/mobile/1/sensor/loc";
+			  var obj;
+			  var lat=0;
+			  var lon=0;
+			  var myLatlng;
+			  var configure=1;
+			  var activadoLoc=0;
+			  
+			function activarLoc() {
+			
+				if(activadoLoc == 0){
+					var message = "status=on";
+					sendPut2Mobile(message);
+					activadoLoc = 1;
+					document.getElementById("starttime").innerHTML = getCompactCurrentTimestamp();
+				}
+			
+			}
+			
+			function desactivarLoc() {
+				
+				if(activadoLoc == 1) {
+					var message = "status=off";
+					sendPut2Mobile(message);
+					activadoLoc = 0;
+					
+				}
+			
+			}
+			
+			function sendPut2Mobile(message) {
+			
+			  var http_request;
+			 			  
+			    if (window.XMLHttpRequest) {
+				
+						http_request = new XMLHttpRequest();
+				
+				  } else if (window.ActiveXObject) {
+				
+						http_request = new ActiveXObject("Microsoft.XMLHTTP");
+				
+				  }
+				  
+			  http_request.open("PUT",url,true);
+			  
+			  http_request.send(message);
+			  
+			  if (http_request.readyState == 4) {
+				if (http_request.status == 200) {
+														
+				} else {
+				  alert("Ocurrio un problema con la URL. Status ="+http_request.status);
+				}
+				http_request = null;
+			  }
+			
+			}
+			  
+			  function paintMap(){
+			  								
+				if (activadoLoc == 1){
+				
+					handle_json();
+					
+					myLatlng = new google.maps.LatLng(lat,lon);
+					
+					if(configure == 1 && lat != 0 && lon != 0){
+					
+						var myOptions = {
+						  zoom: 16,
+						  center: myLatlng,
+						  mapTypeId: google.maps.MapTypeId.HYBRID
+						 
+						}
+						map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+						
+						marker = new google.maps.Marker({
+							position: myLatlng, 
+							map: map,
+							title:"User Position"
+						});
+										
+						configure=0;
+						
+					}else if(configure == 0) {
+					
+						map.panTo(myLatlng);
+						marker.setPosition(myLatlng);
+						
+					}
+					
+					document.getElementById("updatetime").innerHTML = getCompactCurrentTimestamp();
+										
+					
+				}
+				setTimeout(paintMap,5000);
+				
+			  }
+			  
+			  function handle_json() {
+			  
+			  var http_request;
+			 			  
+			    if (window.XMLHttpRequest) {
+				
+						http_request = new XMLHttpRequest();
+				
+				  } else if (window.ActiveXObject) {
+				
+						http_request = new ActiveXObject("Microsoft.XMLHTTP");
+				
+				  }
+				  
+			  http_request.open("GET",url, true);
+			  
+				http_request.onreadystatechange = function(){
+				
+				if (http_request.readyState == 4) {
+				if (http_request.status == 200) {
+				 
+					var obj = eval('('+http_request.responseText+')'); 
+					lat = obj.lat;
+					lon = obj.lon;
+					
+														
+				} else {
+				  alert("Ocurrio un problema con la URL. Status ="+http_request.status);
+				}
+				http_request = null;
+			  }
+			  }
+			  
+			  http_request.send(null);
+			}
+	
+
+			function initialize() {
+			
+				activadoLoc=0;
+				paintMap();			
+				
+			  }
+									  
+			</script>
+		
+		<link rel="stylesheet" href="css/example.css" TYPE="text/css" MEDIA="screen">
+        <link rel="stylesheet" href="css/example-print.css" TYPE="text/css" 
+              MEDIA="print">
+
+
+
+    </head>
+    <body id ="home" onLoad="initialize()" onUnload="desactivarLoc()">
+        <div id="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="layout">
+                <tr>
+					<td colspan="15" id="header"><div class="rigth">
+					<div class="divider"><img src="../images/logo_thofu.gif" width="150" height="90">
+					<img src="../images/UPM_logo.gif" width="90" height="80"></div>
+					  
+					<h1>Plataforma de Adquisición </h1>
+				</div></td>
+				</tr>
+                <tr>
+                    <td id="nav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+							<li><hr align="center"></li>
+                            <li><b>Monitorización Ambiental</b><i>
+							<li><a href="../ambiental/index_micaz.html">Monitorización micaz</a></li>
+							<li><a href="../ambiental/index_sunspot.html">Monitorización Sun SPOT</a></li>
+							<li><hr align="center"></li>
+							<li><b>Monitorización Móvil</b><i>
+							<li><a href="../movil/monitor.html">Lectura RFID</a></li>
+							<li>Localización</li>
+							<li><a href="../movil/mov.html">Sensor Movimiento</a></li>
+							<li><hr align="center"></li>
+							<li><a href="../bio/index.html"><b>Monitorización Biométrica</b></a></li>
+							<li><hr align="center"></li>
+							<li><b>Actuadores</b></li>
+							<li><a href="../arduino/arduino_leds.html">Arduino</li>
+							<li><hr align="center"></li>
+							<br>
+					
+								<li><a href="../contact.html">Contáctanos</a></li>
+                        </ul>
+                    </td>
+                    <td id="content">
+                        <h2>Monitorización de Localización Móvil </h2>
+                       Comienzo: <span id="starttime"></span>,
+                        Actualizado: <span id="updatetime"></span> 
+                        <br/>
+						<br/>
+						<br/>
+                        <span style="float: right">
+                          
+                        </span>
+                        <div> 
+						<button type="button" onclick="activarLoc()">Activar localizacion</button> 
+						<button type="button" onclick="desactivarLoc()">Desactivar localizacion</button> 
+					   </div>
+                        
+						
+						<div id="map_canvas" style="width: 700px; height: 500px"></div> 
+						
+						
+                       <!--
+                        <a href="WoTViz/WoTVisualizationDemo.html">New Plots</a>
+                        -->
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" frameborder=0 id="footer"><p>&copy;2012 Grupo de Procesado de Datos y Simulación. <img src="../images/logo_gpds.jpg" width="40" height="23"> - <a href="../contact.html">Contactar</a>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

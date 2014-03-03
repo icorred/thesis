@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link rel="shortcut icon" href="../images/favio.ico" type="image/x-icon" />
+        <link rel="icon" href="../images/favio.ico" type="image/x-icon">
+        <title>Web of Things Dashboard</title>
+		<link href="../fixed.css" rel="stylesheet" type="text/css">
+		
+		<script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/constants.js"></script>
+
+        <script type="text/javascript">
+            
+			
+			 var i = 0;
+			 
+			 var status = new Array();
+			 
+			
+			function controlActuator(uriActuador, botonID, color){
+			
+				var http_request_Led = false;
+				
+				if (window.XMLHttpRequest) {
+			
+					http_request_Led = new XMLHttpRequest();
+			
+				  } else if (window.ActiveXObject) {
+				
+						http_request_Led = new ActiveXObject("Microsoft.XMLHTTP");
+				
+				  }
+											
+				
+			  if(http_request_Led) {
+							  
+				 				 				
+				  http_request_Led.open("PUT", uriActuador, true);
+				  				  							
+				  http_request_Led.onreadystatechange = function(){
+				
+						
+					  if (http_request_Led.readyState == 4 && http_request_Led.status == 200) {
+					  
+					  					  
+					  var obj = eval('('+http_request_Led.responseText+')');
+					  
+					  						
+						if(obj.type == "led"){					
+							document.getElementById(botonID).style.background = obj.status[0].colour;
+						} else {
+						
+							if (obj.status == "on" ) {
+								document.getElementById(botonID).style.background = "grey";
+							} else {
+								document.getElementById(botonID).style.background = "white";
+							}
+						}
+												 
+						i++;
+						document.getElementById("acciones").innerHTML = i;					
+					  }
+				
+				  }
+				
+				http_request_Led.send(null);
+						
+			  } 
+			
+			  }
+			  
+			  function initLed(){
+			
+				var XMLHttpRequestObject = false;
+				
+				 if (window.XMLHttpRequest) {
+			
+						XMLHttpRequestObject = new XMLHttpRequest();
+				
+				 } else if (window.ActiveXObject) {
+				
+						XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+				
+				 }
+					
+				  if(XMLHttpRequestObject) {
+								  
+													
+					  XMLHttpRequestObject.open("GET", '/gw-d205/arduino/1/sensor/joystick', true);
+					  
+					  					
+					  XMLHttpRequestObject.onreadystatechange = function(){
+					
+						  if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
+									  
+						  var obj = eval('('+XMLHttpRequestObject.responseText+')');
+																					
+							if(obj.type == "led"){
+								document.getElementById(obj.actuator).style.background = obj.status[0].colour;
+							} else {
+								if (obj.status == "on" ) {
+									document.getElementById(obj.actuator).style.background = "grey";
+								} else {
+									document.getElementById(obj.actuator).style.background = "white";
+								}
+							
+							}
+																																	 
+							i++;
+							document.getElementById("acciones").innerHTML = i;					
+						  }
+					
+					  }
+					
+						XMLHttpRequestObject.send(null);
+						
+						initLed();
+						
+				  } 
+			
+			  }
+			  
+			  function resetActuator(uriActuador){
+			  
+				var http_request_Led = false;
+				
+				if (window.XMLHttpRequest) {
+			
+					http_request_Led = new XMLHttpRequest();
+			
+				  } else if (window.ActiveXObject) {
+				
+						http_request_Led = new ActiveXObject("Microsoft.XMLHTTP");
+				
+				  }
+											
+				
+			  if(http_request_Led) {
+							  
+				 				 				
+				  http_request_Led.open("PUT", uriActuador, true);
+				  
+				  							
+				  http_request_Led.onreadystatechange = function(){
+				
+						
+					  if (http_request_Led.readyState == 4 && http_request_Led.status == 200) {
+																						 
+						i++;
+						document.getElementById("acciones").innerHTML = i;		
+			
+					  }
+				
+				  }
+				
+				http_request_Led.send(null);
+				
+				document.getElementById("ledr").style.background = "grey";
+				document.getElementById("ledb").style.background = "grey";
+				document.getElementById("ledy").style.background = "grey";
+				document.getElementById("ledg").style.background = "grey";
+				document.getElementById("ledp").style.background = "grey";
+						
+			  }
+				
+			  
+			  }
+			
+        </script>
+		
+		<link rel="stylesheet" href="css/example.css" TYPE="text/css" MEDIA="screen">
+        <link rel="stylesheet" href="css/example-print.css" TYPE="text/css" 
+              MEDIA="print">
+       
+		    
+    </head>
+    <body id ="home" onLoad="initLed()" onUnload="resetLed()">
+        <div id="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="layout">
+                <tr>
+					<td colspan="15" id="header"><div class="rigth">
+					<div class="divider"><img src="../images/logo_thofu.gif" width="150" height="90">
+					<img src="../images/UPM_logo.gif" width="90" height="80"></div>
+					  
+					<h1>Plataforma de Adquisición </h1>
+				</div></td>
+				</tr>
+                <tr>
+                    <td id="nav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+							<li><hr align="center"></li>
+                            <li><b>Monitorización Ambiental</b><i>
+							<li><a href="../ambiental/index_micaz.html">Monitorización micaz</a></li>
+							<li><a href="../ambiental/index_sunspot.html">Monitorización Sun SPOT</a></li>
+							<li><hr align="center"></li>
+							<li><b>Monitorización Móvil</b><i>
+							<li><a href="../movil/monitor.html">Lectura RFID</a></li>
+							<li><a href="../movil/loc.html">Localización</a></li>
+							<li><a href="../movil/mov.html">Sensor Movimiento</a></li>
+							<li><hr align="center"></li>
+							<li><a href="../bio/index.html"><b>Monitorización Biométrica</b></a></li>
+							<li><hr align="center"></li>
+							<li><b>Actuadores</b></li>
+							<li>Arduino</li>
+							<li><hr align="center"></li>
+							<br>
+							<li><a href="../contact.html">Contáctanos</a></li>
+                        </ul>
+                    </td>
+                    <td id="content">
+                        <h2>Gestión actuadores Arduino</h2>
+                        Acciones realizadas: <span id="acciones">0</span>
+                        <br/>
+						<br/>
+						<br/>
+                        <span style="float: right">
+                          
+                        </span>
+                        <div> 
+						
+					   </div>
+                        
+						<div id="statusEvento1" width="50">
+							<table width="50%" border="0" cellspacing="0" cellpadding="0" id="layout">
+							
+							
+								<td>
+									<tr><h3> Control Leds</h3></br></tr>
+									<tr>
+																	
+										<form>
+											<input id="ledg"  style="width: 120px;background-color:grey" type = "button" value = "Led Verde" onclick = "controlActuator('/gw-d205/arduino/1/actuator/ledg','ledg',  'green')">																	
+										</form> 								
+									
+									</tr>
+									
+									<tr>
+									
+										<form>
+											<input id="ledr"  style="width: 120px;background-color:grey" type = "button" value = "Led Rojo" onclick = "controlActuator('/gw-d205/arduino/1/actuator/ledr', 'ledr', 'red')">																	
+										</form> 								
+									
+									
+									</tr>
+					
+									<tr>
+									
+										<form>
+											<input id="ledb" style="width: 120px;background-color:grey" type = "button" value = "Led Azul" onclick = "controlActuator('/gw-d205/arduino/1/actuator/ledb', 'ledb', 'blue')">																		
+										</form> 								
+									
+									</tr>
+									<tr>
+									
+										<form>
+											<input id="ledy" style="width: 120px;background-color:grey" type = "button" value = "Led Amarillo" onclick = "controlActuator('/gw-d205/arduino/1/actuator/ledy', 'ledy', 'yellow')">																	
+										</form>
+																															
+									</tr>
+									<tr>
+									
+										<form>
+											<input id="ledp" style="width: 120px;background-color:grey" type = "button" value = "Led Blanco" onclick = "controlActuator('/gw-d205/arduino/1/actuator/ledp', 'ledp','grey')">																	
+										</form>
+																															
+									</tr>
+	
+								</td>
+																					
+								<td>
+									<tr><h3></br> Control Relay </br></h3></tr>
+									<tr>								
+										<form>
+											<input id="relay" style="width: 120px;background-color:grey" type = "button" value = "Relé" onclick = "controlActuator('/gw-d205/arduino/1/actuator/relay', 'relay', 'grey')">																	
+										</form>
+																															
+									</tr>
+									
+									<tr><h3></br> Reset Arduino </br></h3></tr>
+									<tr>								
+										<form>
+											<input id="reset" style="width: 120px;background-color:grey" type = "button" value = "Reset" onclick = "resetActuator('/gw-d205/arduino/1/actuator/all')">																	
+										</form>
+																															
+									</tr>
+									
+								</td>
+													
+							
+							</table>
+							
+						</div>
+					
+				    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" frameborder=0 id="footer"><p>&copy;2012 Grupo de Procesado de Datos y Simulación. <img src="../images/logo_gpds.jpg" width="40" height="23"> - <a href="contact.html">Contactar</a>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

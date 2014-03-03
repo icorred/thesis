@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<title>SPOT Web</title> 
+<link href="fixed.css" rel="stylesheet" type="text/css">
+</head>
+<body id="home"> 
+<div id="container"> 
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="layout"> 
+    <tr>
+      <td colspan="3" id="header"><div class="right">
+          <div class="divider"><img src="images/logo_thofu.gif" width="150" height="98"></div>
+          <h1>Plataforma de Sensor Web</h1>
+        </div></td>
+    </tr> 
+    <tr> 
+        <td id="nav">
+	<ul>
+	    <li><a href="/">Home</a></li>
+	    <li><a href="intro.html">Introduccion</a></li>
+	    <li><a href="http://sensor.network.com/spotservices/index.jsp">API</a>
+	    <br><br><br>
+
+            <li>Contactanos</li>
+        </ul>
+      </td> 
+      <td id="content">
+	 <h2>Contactanos</h2>
+	  <p>
+	  Cualquier comentario respecto al funcionamiento de la Plataforma de Sensor Web THOFU debe
+          ser comunicada a <a href="mailto:ivan.corredor@grpss.ssr.upm.es"> GPDS</a>
+         </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" id="footer"><p>&copy;2011 Grupo de Procesado de Datos y Simulación 
+    </tr>
+  </table>
+</div>
+</body> 
+</html> 

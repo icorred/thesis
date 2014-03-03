@@ -1,0 +1,12 @@
+
+# Fichero configuración del servidor para la Plataforma THOFU
+# Ejecutable: Plataforma_Adquisicion.jar
+# Versión: 1.2
+
+SERVER_IP=192.168.150.8
+SERVER_PORT=6008
+DB_IP=localhost
+DB_PORT=3306
+DB_USER=thofu
+DB_PASS=thofu
+

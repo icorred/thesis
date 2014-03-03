@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link rel="shortcut icon" href="../images/favio.ico" type="image/x-icon" />
+        <link rel="icon" href="../images/favio.ico" type="image/x-icon">
+        <title>Web of Things Dashboard</title>
+		<link href="../fixed.css" rel="stylesheet" type="text/css">
+		
+		<script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/constants.js"></script>
+
+        <script type="text/javascript">
+            
+			
+			 var i = 0;
+			 
+			 var url="http://10.1.10.227:6008/gw-d205/mobile/1/sensor/rfid";
+			 			 
+			  if (window.XMLHttpRequest) {
+			
+					XMLHttpRequestObject = new XMLHttpRequest();
+			
+			  } else if (window.ActiveXObject) {
+			
+					XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+			
+			  }
+			
+			  function pedirEvento(fuenteDatos, divID){
+			  
+				var XMLHttpRequestObject;
+				
+				var texto = document.getElementById("targetDiv");
+			
+				   if (window.XMLHttpRequest) {
+			
+					 XMLHttpRequestObject = new XMLHttpRequest();
+			
+					} else if (window.ActiveXObject) {
+					
+						XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+					
+					}
+								  
+					  document.getElementById("starttime").innerHTML = getCompactCurrentTimestamp();
+					  
+					  texto.innerHTML = "Esperando Evento de RFID";
+					  
+					  document.rfid.src = "../images/rfidradar0.png";
+					
+					  XMLHttpRequestObject.open("GET", fuenteDatos, true);
+					
+					  XMLHttpRequestObject.onreadystatechange = function(){
+					
+						  if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
+						
+							texto.innerHTML = "Evento recibido. ID tarjeta: <b>" + XMLHttpRequestObject.responseText+"</b>";
+							document.rfid.src = "../images/rfidradar.png";
+							i++;
+							document.getElementById("recibidos").innerHTML = i;
+							document.getElementById("updatetime").innerHTML = getCompactCurrentTimestamp();
+						  }
+					
+					  }
+					
+						XMLHttpRequestObject.send(null);				  
+			
+			  }
+			  
+			  function desactivarMon() {
+			  
+			   var http_request;
+			  
+				if (window.XMLHttpRequest) {
+					
+					http_request = new XMLHttpRequest();
+					
+				} else if (window.ActiveXObject) {
+					
+				   http_request = new ActiveXObject("Microsoft.XMLHTTP");
+					
+				}
+				
+					 http_request.open("PUT",url,true);
+					 
+					 var message = {"stopMonitor":"stop"};
+					 
+					 http_request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+											  
+					 http_request.send(JSON.stringify(message));
+					
+										 
+					 if (http_request.readyState == 4) {
+						if (http_request.status == 200) {
+																
+						} else {
+						  alert("PUT Ocurrio un problema con la URL. Status ="+http_request.status);
+						}
+						http_request = null;
+					}
+			  
+				}		  
+			  
+			
+        </script>
+		
+		<link rel="stylesheet" href="css/example.css" TYPE="text/css" MEDIA="screen">
+        <link rel="stylesheet" href="css/example-print.css" TYPE="text/css" 
+              MEDIA="print">
+       
+		    
+    </head>
+    <body id ="home" onUnload="desactivarMon()">
+        <div id="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="layout">
+                <tr>
+					<td colspan="15" id="header"><div class="rigth">
+					<div class="divider"><img src="../images/logo_thofu.gif" width="150" height="90">
+					<img src="../images/UPM_logo.gif" width="90" height="80"></div>
+					  
+					<h1>Plataforma de Adquisición </h1>
+				</div></td>
+				</tr>
+                <tr>
+                    <td id="nav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+							<li><hr align="center"></li>
+                            <li><b>Monitorización Ambiental</b><i>
+							<li><a href="../ambiental/index_micaz.html">Monitorización micaz</a></li>
+							<li><a href="../ambiental/index_sunspot.html">Monitorización Sun SPOT</a></li>
+							<li><hr align="center"></li>
+							<li><b>Monitorización Móvil</b><i>
+							<li>Lectura RFID</li>
+							<li><a href="../movil/loc.html">Localización</a></li>
+							<li><a href="../movil/mov.html">Sensor Movimiento</a></li>
+							<li><hr align="center"></li>
+							<li><a href="../bio/index.html"><b>Monitorización Biométrica</b></a></li>
+							<li><hr align="center"></li>
+							<li><b>Actuadores</b></li>
+							<li><a href="../arduino/arduino_leds.html">Arduino</li>
+							<li><hr align="center"></li>
+							<br>
+							<li><a href="../contact.html">Contáctanos</a></li>
+                        </ul>
+                    </td>
+                    <td id="content">
+                        <h2>Monitorización de Eventos de RFID </h2>
+                        Comienzo: <span id="starttime"></span>, 
+                        Ultimo evento: <span id="updatetime"></span> 
+                        Eventos Recibidos: <span id="recibidos">0</span>
+                        <br/>
+						<br/>
+						<br/>
+                        <span style="float: right">
+                          
+                        </span>
+                        <div> 
+						
+					   </div>
+                        
+						<div id="statusEvento" width="400">
+						
+							<div width="200" align="centre">
+								<form>
+	
+									<input type = "button" value = "Subscribir Evento RFID" onclick = "pedirEvento('/gw-d205/mobile/1/sensor/rfid','statusEvento')">
+								
+								</form> 
+								<img src="../images/rfidradar0.png" align="center" name="rfid" width="150" height="160" id="rfid">
+								
+								<div align="center" style="width:20%;background-color:#99FF66" id="targetDiv">
+									<p>Esperando Subscripción</p>
+								</div>
+							</div>
+							
+						</div>
+						
+                       <!--
+                        <a href="WoTViz/WoTVisualizationDemo.html">New Plots</a>
+                        -->
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" frameborder=0 id="footer"><p>&copy;2012 Grupo de Procesado de Datos y Simulación. <img src="../images/logo_gpds.jpg" width="40" height="23"> - <a href="../contact.html">Contactar</a>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

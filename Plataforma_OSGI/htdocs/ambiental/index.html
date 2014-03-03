@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link rel="shortcut icon" href="../images/favio.ico" type="image/x-icon" />
+        <link rel="icon" href="../images/favio.ico" type="image/x-icon">
+        <title>Web of Things Dashboard</title>
+        <link href="../fixed.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/constants.js"></script>
+
+		<script>
+			
+			function imagen() {
+			  imgs1 = [
+			  'https://api.cosm.com/v2/feeds/64032/datastreams/node3A.png?width=600&height=200&colour=%23fff4&duration=5minutes&title=Temperatura%20Despacho%20D205%20(Nodo%203)&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=Madrid',
+			  'https://api.cosm.com/v2/feeds/64032/datastreams/node5A.png?width=600&height=200&colour=%23fff4&duration=5minutes&title=Temperatura%20Despacho%20D205%20(Nodo%205)&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=Madrid',
+			  'https://api.cosm.com/v2/feeds/64032/datastreams/node8A.png?width=600&height=200&colour=%23fff4&duration=5minutes&title=Temperatura%20Despacho%20D205%20(Nodo%208)&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=Madrid',
+			  'https://api.cosm.com/v2/feeds/64032/datastreams/node1A.png?width=600&height=200&colour=%23fff4&duration=5minutes&title=Temperatura%20Despacho%20D205%20(Nodo%201)&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=Madrid'
+			  ];
+			  
+			  imgs2 = [
+			  'https://api.cosm.com/v2/feeds/64032/datastreams/node3B.png?width=600&height=200&colour=%21fff4&duration=5minutes&title=Humedad%20Despacho%20D205%20(Nodo%203)&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=Madrid',
+			  'https://api.cosm.com/v2/feeds/64032/datastreams/node5B.png?width=600&height=200&colour=%21fff4&duration=5minutes&title=Humedad%20Despacho%20D205%20(Nodo%205)&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=Madrid',
+			  'https://api.cosm.com/v2/feeds/64032/datastreams/node8B.png?width=600&height=200&colour=%21fff4&duration=5minutes&title=Humedad%20Despacho%20D205%20(Nodo%208)&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=Madrid',
+			  'https://api.cosm.com/v2/feeds/64032/datastreams/node1B.png?width=600&height=200&colour=%21fff4&duration=5minutes&title=Humedad%20Despacho%20D205%20(Nodo%201)&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=Madrid',
+			  ];
+			  
+			  for(i=0;i<4;i++){
+			    document.getElementById(i+1).src = imgs1[i];
+				document.getElementById(i+5).src = imgs2[i];
+			  }
+			  
+			  setInterval('imagen()',15000);
+			}
+		
+		</script>
+
+        <link rel="stylesheet" href="css/example.css" TYPE="text/css" MEDIA="screen">
+        <link rel="stylesheet" href="css/example-print.css" TYPE="text/css" 
+              MEDIA="print">
+        <script type="text/javascript">
+            /* Optional: Temporarily hide the "tabber" class so it does not
+             * "flash" on the page as plain HTML. After tabber runs, the
+             * class is changed to "tabberlive" and it will appear.
+             */
+            document.write('<style type="text/css">.tabber{display:none;}<\/style>');
+        </script>
+        <script type="text/javascript" src="js/device.js"></script>
+        <script type="text/javascript" src="js/model.js"></script>
+        <script type="text/javascript" src="js/view.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/tabber-minimized.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/dropdownmenu.css">
+        <script type="text/javascript" src="js/dropdownmenu.js"></script>
+    </head>
+    <body id ="home" onLoad="setInterval('imagen()',2000)">
+        <div id="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="layout">
+                <tr>
+				<td colspan="15" id="header"><div class="rigth">
+				<div class="divider"><img src="../images/logo_thofu.gif" width="150" height="90">
+				<img src="../images/UPM_logo.gif" width="90" height="80"></div>
+		  		  
+				<h1>Plataforma de Adquisición </h1>
+        </div></td>
+		</tr>
+                <tr>
+                    <td id="nav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+							<li><hr align="center"></li>
+							<li><b>Monitorización Ambiental</b><i>
+							<li>Temperatura y Humedad</li>
+							<li><hr align="center"></li>
+							<li><b>Monitorización Móvil</b><i>
+							<li><a href="../movil/monitor.html">Lectura RFID</a></li>
+							<li><a href="../movil/loc.html">Localización</a></li>
+							<li><a href="../movil/mov.html">Movimiento</a></li>
+							<li><hr align="center"></li>
+							<li><a href="../bio/index.html"><b>Monitorización Biométrica</b></a></li>
+							<li><hr align="center"></li>
+							<li><b>Actuadores</b></li>
+							<li><a href="../arduino/arduino_leds.html">Arduino</li>
+							
+							<li><hr align="center"></li>
+							<br>
+					
+								<li><a href="../contact.html">Contactanos</a></li>
+                        </ul>
+                    </td>
+                    <td id="content">
+                        <h2>Monitorización de Sensores Ambientales</h2>
+                        Comienzo: <span id="starttime"></span>, 
+                        Actualizado: <span id="updatetime"></span> 
+                        Encontrados: <span id="devicecnt">0</span> dispositivos (<span id="activedevicecnt">0</span> active)
+                        <br/>
+                        <span style="float: right">
+                            <input type="checkbox" name="autorefresh" value="ON" checked="checked" onchange="AUTO_REFRESH=this.checked;updateStatus('Auto refresh ' + (AUTO_REFRESH ? 'ac' : 'desac') + 'tivado.');"/> Auto-actualización
+                            (Una vez cada <select name="refreshperiod" onchange="updateModelRefreshPeriod(this.value * 1000);">
+								<option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="30" selected="true">30</option>
+                                <option value="60">60</option>
+                                <option value="120">120</option>
+                            </select> segundos) &nbsp;&nbsp;
+                            <input type="checkbox" name="autoscroll" value="ON" checked="checked" onchange="AUTO_SCROLL=this.checked;updateStatus('Auto scroll ' + (AUTO_SCROLL ? 'desac') + 'tivado.');"/> Auto-relleno
+                        </span>
+					<table>
+					  <td>
+                        <img id="1">
+						<img id="2">
+						<img id="3">
+						<img id="4">
+						
+					  </td>
+					  <td>
+						<img id="5">
+						<img id="6">
+						<img id="7">
+						<img id="8">
+						
+					  </td>
+					</table>
+						<p>
+                            Cada dispositivo está representado por una gráfica
+							que muestra el Id, el nombre, el nivel de batería,
+							el timestamp de la última medida, y el ratio de peticiones
+							completadas de lecturas de temperatura y valores de los LED.
+                        </p>
+                        <p>
+                            Los valores de los LEDs y el nombre pueden cambiarse utilizando
+							el menú desplegable de cada dispositivo.							
+                        </p>
+                       <!--
+                        <a href="WoTViz/WoTVisualizationDemo.html">New Plots</a>
+                        -->
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" frameborder=0 id="footer"><p>&copy;2012 Grupo de Procesado de Datos y Simulación. <img src="../images/logo_gpds.jpg" width="40" height="23"> - <a href="contact.html">Contactar</a>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link rel="shortcut icon" href="../images/favio.ico" type="image/x-icon" />
+        <link rel="icon" href="../images/favio.ico" type="image/x-icon">
+        <title>Web of Things Dashboard</title>
+		<link href="../fixed.css" rel="stylesheet" type="text/css">
+		
+		<script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/constants.js"></script>
+
+		<script type="text/javascript">
+			
+			  var url ="http://10.1.10.227:6008/gw-d205/mobile/1/sensor/mov";
+			  var i = 0;
+			  var obj;
+			  var turn=0;
+			  var pos=0;
+			  var desactivado=1;
+						  
+								  
+			  function movSensorReq(){
+			  
+			  var http_request;
+			  var XMLHttpRequestObject = false;
+			  
+			  var texto = document.getElementById("targetDiv");
+			  
+			    if (window.XMLHttpRequest) {
+				
+						http_request = new XMLHttpRequest();
+				
+				  } else if (window.ActiveXObject) {
+				
+						http_request = new ActiveXObject("Microsoft.XMLHTTP");
+				
+				  }
+			    http_request.open("GET",url, true);
+			  
+				http_request.onreadystatechange = function(){
+				
+					if (http_request.readyState == 4) {
+					if (http_request.status == 200 && desactivado == 0) {
+					 
+						var obj = eval('('+http_request.responseText+')'); 
+						pos = obj.pos;
+						turn = obj.turn;
+											
+						texto.innerHTML = "<b>Estado Sensor Movimiento</b></br>Position: <b>" + pos+"</b></br>Turn: <b>"+turn;
+							
+							i++;
+							document.getElementById("recibidos").innerHTML = i;
+						
+							setTimeout(movSensorReq,2000);
+						
+					} else if ( http_request.status != 200) {
+					  alert("Ocurrio un problema con la URL. Status ="+http_request.status);
+					} 
+					
+					http_request = null;
+				  }
+			  }
+			  
+			  http_request.send(null);
+			  
+			  
+			}
+				
+
+			function activarMov() {
+							
+				desactivado = 0;
+				
+				movSensorReq();
+				
+			}
+			
+			function desactivarMov() {
+							
+				desactivado = 1;		
+				
+			}
+									  
+			</script>
+		
+		<link rel="stylesheet" href="css/example.css" TYPE="text/css" MEDIA="screen">
+        <link rel="stylesheet" href="css/example-print.css" TYPE="text/css" 
+              MEDIA="print">
+
+
+
+    </head>
+    <body id ="home" onUnload="desactivarMov()">
+        <div id="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="layout">
+                <tr>
+					<td colspan="15" id="header"><div class="rigth">
+					<div class="divider"><img src="../images/logo_thofu.gif" width="150" height="90">
+					<img src="../images/UPM_logo.gif" width="90" height="80"></div>
+					  
+					<h1>Plataforma de Adquisición </h1>
+				</div></td>
+				</tr>
+                <tr>
+                   <td id="nav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+							<li><hr align="center"></li>
+                            <li><b>Monitorización Ambiental</b><i>
+							<li><a href="../ambiental/index.html">Temperatura y Humedad</a></li>
+							<li><hr align="center"></li>
+							<li><b>Monitorización Móvil</b><i>
+							<li><a href="../movil/monitor.html">Lectura RFID</a></li>
+							<li><a href="../movil/loc.html">Localización</a></li>
+							<li>Sensor Movimiento</li>
+							<li><hr align="center"></li>
+							<li><a href="../bio/index.html"><b>Monitorización Biométrica</b></a></li>
+							<li><hr align="center"></li>
+							<li><b>Actuadores</b></li>
+							<li><a href="../arduino/arduino_leds.html">Arduino</li>
+							<li><hr align="center"></li>
+							<br>
+							<li><a href="../contact.html">Contáctanos</a></li>
+                        </ul>
+                    </td>
+                   <td id="content">
+                        <h2>Monitorización de Eventos de Movimiento </h2>
+                        Eventos Recibidos: <span id="recibidos">0</span>
+                        <br/>
+						<br/>
+						<br/>
+                        <span style="float: right">
+                          
+                        </span>
+                        <div> 
+						
+					   </div>
+                        
+						<div id="statusEvento" width="200">
+						 
+							<div width="200" align="center">
+							<form>
+
+								<input type = "button" value ="Activar Monitorizacion" onclick = "activarMov()">
+								<input type = "button" value ="Desactivar Monitorizacion" onclick = "desactivarMov()">
+							
+							</form>
+							<img src="../images/mobile.jpg" name="rfid" width="220" height="230" id="mobile">
+							<div align="center" style="width:30%;background-color:#99FF66" id="targetDiv">
+								<p>Monitorización del sensor de movimiento <b>desactivada</b></p>
+							</div>
+							</div>
+						</div>
+						
+                       <!--
+                        <a href="WoTViz/WoTVisualizationDemo.html">New Plots</a>
+                        -->
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" frameborder=0 id="footer"><p>&copy;2011 Grupo de Procesado de Datos y Simulación. <img src="../images/logo_gpds.jpg" width="40" height="23"> - <a href="../contact.html">Contactar</a>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
