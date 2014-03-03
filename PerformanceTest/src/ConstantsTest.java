@@ -17,7 +17,7 @@ public class ConstantsTest {
 	public static int Ns;
 	public static int Nc;
 	
-	public static int ITERATIONS = 40;
+	public static int ITERATION = 40;
 		
 	public static long DURATION = 30000;
 	
