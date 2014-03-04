@@ -95,7 +95,7 @@ public class Constants {
     
  //   public static String GW_ROOT_URI; //="http://172.16.5.34:"+RESTLET_PORT;
     		
-    public static final String ROOT_URI = "file:///home/gpds/workspace_bk/Plataforma_OSGI/htdocs";
+    public static final String ROOT_URI = "file:///gpds/git/thesis/Plataforma_OSGI/htdocs";
     
     public static String BD_URL = "jdbc:mysql://";
     
@@ -151,7 +151,7 @@ public class Constants {
     	
     	try{
             // Abrimos el archivo
-            FileInputStream fstream = new FileInputStream("/home/gpds/Desktop/ExpLab/config_plataforma");
+            FileInputStream fstream = new FileInputStream("/gpds/git/thesis/Plataforma_OSGI/src/config_plataforma");
             // Creamos el objeto de entrada
             DataInputStream entrada = new DataInputStream(fstream);
             // Creamos el Buffer de Lectura

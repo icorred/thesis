@@ -26,7 +26,7 @@ public class DataBase {
 	 public double computeDistance(double A, double N) {
 		 int RSSI=0;
 		 
-		 System.out.println("Compute Distance");
+	//	 System.out.println("Compute Distance");
 		 if(this.RSSI_RAW< 128)
 		 {
 			 RSSI = this.RSSI_RAW - 45; 
@@ -34,14 +34,14 @@ public class DataBase {
 			 RSSI = this.RSSI_RAW - 256 - 45;
 		 	  }
 		 this.distance=Math.pow(10,(A - RSSI) / (10 * N));//calculate the distance
-		 System.out.println("nodo = " + node_id + ", RSS = "+RSSI+ " distance " +distance);
+	//	 System.out.println("nodo = " + node_id + ", RSS = "+RSSI+ " distance " +distance);
 		 //System.out.flush();
 		 return this.distance;
 		 
 	    }
 	  
 	 public double updateDistance(int new_RSSI_RAW,double A, double N, int seq_number) {
-		 System.out.println("pass updateDistance");
+	//	 System.out.println("pass updateDistance");
 		 this.RSSI_RAW=(this.RSSI_RAW + new_RSSI_RAW)/2;		 
 		 this.computeDistance(A, N);
 		 this.sequence_number=seq_number;

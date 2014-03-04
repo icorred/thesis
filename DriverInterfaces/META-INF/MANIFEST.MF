@@ -4,7 +4,7 @@ Bundle-Name: DriverInterfaces
 Bundle-SymbolicName: DriverInterfaces
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: driverinterfaces.Activator
-Bundle-Vendor: GPDA
+Bundle-Vendor: GPDS
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: driverinterfaces;uses:="org.osgi.framework"
-Require-Bundle: org.eclipse.osgi;bundle-version="3.9.0"
+Require-Bundle: org.eclipse.osgi;bundle-version="3.8.1"

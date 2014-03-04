@@ -10,11 +10,10 @@ Import-Package: driverinterfaces,
  es.upm.ssr.grpss.thofu.adquisicion.gw.driver,
  es.upm.ssr.grpss.thofu.adquisicion.gw.eventmanagement,
  es.upm.ssr.grpss.thofu.adquisicion.serviceinterfaces
-Bundle-ClassPath: lib/localization.jar,
- lib/utils.jar,
+Bundle-ClassPath: lib/utils.jar,
  .,
  lib/tinyos.jar
 Require-Bundle: Plat;bundle-version="1.0.0",
- org.eclipse.osgi;bundle-version="3.9.0",
+ DriverInterfaces;bundle-version="1.0.0",
  org.apache.geronimo.bundles.json;bundle-version="20090211.0.0",
- DriverInterfaces;bundle-version="1.0.0"
+ org.eclipse.osgi;bundle-version="3.8.1"

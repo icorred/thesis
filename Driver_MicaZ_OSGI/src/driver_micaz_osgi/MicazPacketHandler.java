@@ -183,7 +183,7 @@ public class MicazPacketHandler implements MessageListener, IMicaZDriver{
 		mif.registerListener(new EnvEvent(), this);
 		mif.registerListener(new AlivePacket(), this);
 		mif.registerListener(new ControlLocalizationMsg(), this);
-		mif.registerListener(new DataPacketMsg(), this);
+		mif.registerListener(new dataPacketMsg(), this);
 		mif.registerListener(new MatMsg(), this);
 		mif.registerListener(new PIRMsg(), this);
 		mif.registerListener(new ProxMsg(), this);
@@ -201,7 +201,7 @@ public class MicazPacketHandler implements MessageListener, IMicaZDriver{
 		mif.deregisterListener(new EnvEvent(), this);
 		mif.deregisterListener(new AlivePacket(), this);
 		mif.deregisterListener(new ControlLocalizationMsg(), this);
-		mif.deregisterListener(new DataPacketMsg(), this);
+		mif.deregisterListener(new dataPacketMsg(), this);
 		mif.deregisterListener(new MatMsg(), this);
 		mif.deregisterListener(new PIRMsg(), this);
 		mif.deregisterListener(new ProxMsg(), this);
@@ -812,8 +812,8 @@ public class MicazPacketHandler implements MessageListener, IMicaZDriver{
 				
 			}		
 			
-			else if (micazMessage instanceof DataPacketMsg) {
-				DataPacketMsg locPacket = (DataPacketMsg)micazMessage;
+			else if (micazMessage instanceof dataPacketMsg) {
+				dataPacketMsg locPacket = (dataPacketMsg)micazMessage;
 				//System.out.println("Probando antes");
 				if (!duplicateTable.containsKey(locPacket.get_source()) || duplicateTable.get(locPacket.get_source()) != locPacket.get_seqNumber()) {
 					duplicateTable.put(locPacket.get_source(), locPacket.get_seqNumber());

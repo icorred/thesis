@@ -5,12 +5,22 @@ Bundle-SymbolicName: Plat
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: es.upm.ssr.grpss.thofu.adquisicion.gw.core.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: es.upm.ssr.grpss.thofu.adquisicion.gw.core,
- es.upm.ssr.grpss.thofu.adquisicion.gw.driver,
- es.upm.ssr.grpss.thofu.adquisicion.gw.eventmanagement,
- es.upm.ssr.grpss.thofu.adquisicion.serviceinterfaces
-Require-Bundle: org.eclipse.osgi;bundle-version="3.9.0",
- org.apache.geronimo.bundles.json;bundle-version="20090211.0.0"
+Export-Package: es.upm.ssr.grpss.thofu.adquisicion.gw.core;
+  uses:="org.restlet.resource,
+   es.upm.ssr.grpss.thofu.adquisicion.gw.driver,
+   org.osgi.framework,
+   org.json,
+   org.restlet,
+   com.sun.spot.wot.http",
+ es.upm.ssr.grpss.thofu.adquisicion.gw.driver;uses:="driverinterfaces,org.osgi.framework",
+ es.upm.ssr.grpss.thofu.adquisicion.gw.eventmanagement;
+  uses:="es.upm.ssr.grpss.thofu.adquisicion.serviceinterfaces,
+   org.json,
+   es.upm.ssr.grpss.thofu.adquisicion.gw.core,
+   org.restlet",
+ es.upm.ssr.grpss.thofu.adquisicion.serviceinterfaces;uses:="es.upm.ssr.grpss.thofu.adquisicion.gw.eventmanagement,org.json,es.upm.ssr.grpss.thofu.adquisicion.gw.algorithms.localization.area"
+Require-Bundle: org.apache.geronimo.bundles.json;bundle-version="20090211.0.0",
+ org.eclipse.osgi;bundle-version="3.8.1"
 Bundle-ClassPath: lib/bluecove.jar,
  lib/com.google.collections.jar,
  lib/com.google.gdata.client.jar,

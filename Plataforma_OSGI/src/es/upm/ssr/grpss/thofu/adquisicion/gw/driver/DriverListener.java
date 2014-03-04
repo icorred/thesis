@@ -83,7 +83,7 @@ public class DriverListener implements BundleListener {
 		
 		case BundleEvent.STARTED:
 			
-			System.out.println("*** Comenzando bundle: "+symbolicName);
+		//	System.out.println("*** Comenzando bundle: "+symbolicName);
 			
 			if(symbolicName.compareTo("MicaZ") == 0){
 								
